@@ -3,11 +3,11 @@ require 'active_support/core_ext/object/try'
 require 'active_support/core_ext/hash/keys'
 
 module SmtpURL
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 
   def self.parse(uri)
     config = URI.parse(uri)
-    return nil if config.scheme != 'smtp'
+    return {} if config.scheme != 'smtp'
     query_params = split_query_params(config.query)
     settings = { :address        => config.host,
                  :port           => config.port || 25,
@@ -19,7 +19,7 @@ module SmtpURL
     settings.reject!{ |key,value| value.nil? }
     settings
   rescue URI::InvalidURIError
-    return nil
+    return {}
   end
 
   private

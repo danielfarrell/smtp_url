@@ -43,15 +43,15 @@ describe SmtpURL, '#parse' do
     settings[:authentication].should eq(:digest)
   end
 
-  it "should return nil for invalid url" do
+  it "should return empty hash for invalid url" do
     url = "just a string of stuff"
     settings = SmtpURL.parse url
-    settings.should eq(nil)
+    settings.should eq({})
   end
 
-  it "should return nil if url is not smtp" do
+  it "should return empty hash if url is not smtp" do
     url = "http://test.com"
     settings = SmtpURL.parse url
-    settings.should eq(nil)
+    settings.should eq({})
   end
 end
