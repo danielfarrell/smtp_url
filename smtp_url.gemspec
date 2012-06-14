@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Daniel Farrell"]
   s.email       = ["danielfarrell76@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/danielfarrell/smtp_url"
   s.summary     = %q{Convert an smtp url into mail/action mailer friendly hashes}
   s.description = %q{Allows smtp settings to be defined as URL in environment variable, then converted to hash for use in Mail/ActionMailer}
   s.files         = `git ls-files`.split("\n")
