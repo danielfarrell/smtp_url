@@ -7,17 +7,9 @@ variable.
 
 ## Installation
 
-Either in your `Gemfile`:
+Add to your `Gemfile`:
 
     gem "smtp_url"
-
-Or install it directly onto your system with rubygems:
-
-    gem install smtp_url
-
-Then require in your app:
-
-    require "smtp_url"
 
 ## Usage
 
@@ -37,10 +29,13 @@ Set the URL in an enviroment variable in your server setup:
 
     export SMTP_URL=smtp://user:secret@mailserver:587/?domain=test.com
 
-And then wherever you setup your smtp settings(often config/application.rb) add:
+## Development
 
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = SmtpURL.parse ENV["SMTP_URL"]
+Can be very useful in development when paired with something like
+[Mailcatcher](http://mailcatcher.me/):
+
+    export SMTP_URL=smtp://127.0.0.1:1025
+
 
 ## License
 
