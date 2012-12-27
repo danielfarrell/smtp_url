@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'smtp_url/invalid_url_exception'
 require 'smtp_url/parser'
 
