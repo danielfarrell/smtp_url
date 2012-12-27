@@ -1,8 +1,8 @@
 # SmtpURL setup
 
 This gem allows you to configure your smtp settings for mail and 
-action mailer using a url.  The intention is to keep those settings
-out of your code and allow easily setting them with an environment
+action mailer using a url.  The intention is to keep those settings 
+out of your code and allow easily setting them with an environment 
 variable.
 
 ## Installation
@@ -13,7 +13,10 @@ Add to your `Gemfile`:
 
 ## Usage
 
-Use a URL like so:
+If you are in Rails it will automatically setup your email settings if 
+you have the SMTP_URL enviroment variable set.
+
+Use a SMTP_URL that looks like so:
 
     smtp://<user>:<password>@<hostname>:<port>/?<options>
 
@@ -25,7 +28,7 @@ both the domain and authentication options. For example:
 Only `hostname`, is required. Everything else is optional. It will
 default to port 25 if it is not specified.
 
-Set the URL in an enviroment variable in your server setup:
+Set SMTP_URL in your server setup like so:
 
     export SMTP_URL=smtp://user:secret@mailserver:587/?domain=test.com
 
@@ -34,7 +37,7 @@ Set the URL in an enviroment variable in your server setup:
 Can be very useful in development when paired with something like
 [Mailcatcher](http://mailcatcher.me/):
 
-    export SMTP_URL=smtp://127.0.0.1:1025
+    export SMTP_URL=smtp://localhost:1025
 
 
 ## License
