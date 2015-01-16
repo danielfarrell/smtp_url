@@ -1,8 +1,10 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
 gem 'activesupport'
 
 group :test do
-  gem "rspec"
-  gem "mocha"
+  gem 'rspec'
+  gem 'mocha'
+  gem 'rake'
+  gem 'railties'
 end
