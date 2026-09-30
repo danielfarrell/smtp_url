@@ -4,6 +4,8 @@ require 'active_support/core_ext/hash/keys'
 
 module SmtpURL
   class Parser
+    # default port of each scheme: smtps is SMTP over implicit TLS (RFC 8314)
+    DEFAULT_PORTS = { 'smtp' => 25, 'smtps' => 465 }.freeze
 
     def initialize(url)
       @url = url
@@ -21,7 +23,7 @@ module SmtpURL
 
     def parse_url
       parsed_url = URI.parse(@url)
-      raise InvalidUrlException, "Improper format of SMTP_URL env var, must be smtp://" unless parsed_url.scheme == 'smtp'
+      raise InvalidUrlException, "Improper format of SMTP_URL env var, must be smtp:// or smtps://" unless DEFAULT_PORTS.key?(parsed_url.scheme)
       parsed_url
     rescue URI::InvalidURIError => e
       raise InvalidUrlException, "Could not parse SMTP_URL env var"
@@ -30,12 +32,18 @@ module SmtpURL
     def build_hash(config, query)
       {
         :address        => config.host,
-        :port           => config.port || 25,
+        :port           => config.port || DEFAULT_PORTS[config.scheme],
         :domain         => query[:domain],
-        :user_name      => config.user,
-        :password       => config.password,
-        :authentication => query[:authentication].try(:to_sym)
+        :user_name      => decode(config.user),
+        :password       => decode(config.password),
+        :authentication => query[:authentication].try(:to_sym),
+        :tls            => (true if config.scheme == 'smtps')
       }
+    end
+
+    # userinfo is percent-encoded (RFC 3986): a '+' is a plus sign, not a space
+    def decode(component)
+      component && URI.decode_uri_component(component)
     end
 
     def split_query_params(query = nil)
